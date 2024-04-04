@@ -3,6 +3,7 @@ package com.murli.security.controller;
 
 import com.murli.security.dto.JwtResponse;
 import com.murli.security.dto.LoginRequest;
+import com.murli.security.dto.UserInfo;
 import com.murli.security.service.JwtHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,6 @@ public class AuthController {
 	@Autowired
 	private UserDetailsService userDetailsService;
 
-
 	private AuthenticationManager manager;
 
 	@Autowired
@@ -50,15 +50,10 @@ public class AuthController {
 		UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
 		String token = this.helper.generateToken(userDetails);
 
-//        JwtResponse response = JwtResponse.builder()
-//                .jwtToken(token)
-//                .username(userDetails.getUsername()).build();
-
 		com.murli.model.User user = new com.murli.model.User();
 
 		user.setUsername(userDetails.getUsername());
 		user.setRole(userDetails.getAuthorities().toString());
-
 
 		JwtResponse response = new JwtResponse(token,user);
 
