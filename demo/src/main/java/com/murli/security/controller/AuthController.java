@@ -30,7 +30,7 @@ public class AuthController {
 
 	private Logger logger = LoggerFactory.getLogger(AuthController.class);
 
-	@GetMapping("/login")
+	@PostMapping("/login")
 	public ResponseEntity<JwtResponse> login(@RequestBody LoginRequest request) {
 		
 		logger.info("Inside Login"+request);
